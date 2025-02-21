@@ -6,6 +6,8 @@ use App\Http\Controllers\MyController;
 use App\Http\Controllers\SumController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\DisplayController;
+use App\Http\Controllers\CovidController;
+
 
 
 
@@ -18,3 +20,4 @@ Route::resource('view', PostController::class);
 
 Route::get('/student', [DisplayController::class, 'showForm']);
 Route::post('/student', [DisplayController::class, 'display']);
+Route::get('/welcome', [CovidController::class, 'getData']);

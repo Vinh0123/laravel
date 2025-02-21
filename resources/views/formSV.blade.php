@@ -108,19 +108,21 @@ ul li {
         <label for="address">Address:</label>
         <input type="text" name="address" ><br>
         <div>
-            @include('block.error')
         </div>
 
         <button type="submit">Submit</button>
     </form>
 
-    @if(isset($name, $age, $date, $phone, $address))
+    @if(isset($userSession))
+      @foreach ($userSession as $user )
+      
+      @endforeach
         <ul>
-            <li><strong>Name:</strong> {{ $name }}</li>
-            <li><strong>Age:</strong> {{ $age }}</li>
-            <li><strong>Date:</strong> {{ $date }}</li>
-            <li><strong>Phone:</strong> {{ $phone }}</li>
-            <li><strong>Address:</strong> {{ $address }}</li>
+            <li><strong>Name:</strong> {{ $user['name'] }}</li>
+            <li><strong>Age:</strong> {{ $user['age'] }}</li>
+            <li><strong>Date:</strong> {{ $user['date'] }}</li>
+            <li><strong>Phone:</strong> {{ $user['phone'] }}</li>
+            <li><strong>Address:</strong> {{ $user['address'] }}</li>
         </ul>
     @endif
 

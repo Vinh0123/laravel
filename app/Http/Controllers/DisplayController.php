@@ -10,16 +10,17 @@ class DisplayController extends Controller
    public function showForm() {
      return view('formSV');
    }
-    public function display(StudentInfomationRequest $request) {
-      $validated = $request->validated();
-
-      return view('formSV', [
-          'name' => $validated['name'],
-          'age' => $validated['age'],
-          'date' => $validated['date'],
-          'phone' => $validated['phone'],
-          'address' => $validated['address'],
-      ]);
-   }
-   
+   public function display(Request $request) {
+    $userSession = session('userSession',[]);
+    $user = [
+        'name' => $request->input('name'),
+        'age' => $request->input('age'),
+        'date' => $request->input('date'),
+        'phone' => $request->input('phone'),
+        'address' => $request->input('address'),
+    ];
+    $userSession = $user;
+    session(['userSession' => $userSession]);
+    return view('formSV')->with('userSession', $userSession);
+}   
 }
