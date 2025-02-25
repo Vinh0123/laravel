@@ -95,28 +95,37 @@ ul li {
         @csrf
         <label for="name">Name:</label>
         <input type="text" name="name"><br>
-
+        @error('name')
+            <p style="color: red; font-weight: bold">{{ $message }}</p>
+        @enderror
         <label for="age">Age:</label>
         <input type="text" name="age"><br>
-
-        <label for="email">Date:</label>
+        @error('age')
+            <p style="color: red; font-weight: bold">{{ $message }}</p>
+        @enderror
+        <label for="date">Date:</label>
         <input type="text" name="date" ><br>
-
+        @error('date')
+            <p style="color: red; font-weight: bold">{{ $message }}</p>
+        @enderror
         <label for="phone">Phone:</label>
         <input type="text" name="phone" ><br>
-
+        @error('phone')
+            <p style="color: red; font-weight: bold">{{ $message }}</p>
+        @enderror
         <label for="address">Address:</label>
         <input type="text" name="address" ><br>
+        @error('address')
+            <p style="color: red; font-weight: bold">{{ $message }}</p>
+        @enderror
         <div>
         </div>
 
         <button type="submit">Submit</button>
     </form>
 
-    @if(isset($userSession))
-      @foreach ($userSession as $user )
-      
-      @endforeach
+    @if(isset($users))
+    @foreach ($users as $user)
         <ul>
             <li><strong>Name:</strong> {{ $user['name'] }}</li>
             <li><strong>Age:</strong> {{ $user['age'] }}</li>
@@ -124,7 +133,9 @@ ul li {
             <li><strong>Phone:</strong> {{ $user['phone'] }}</li>
             <li><strong>Address:</strong> {{ $user['address'] }}</li>
         </ul>
+    @endforeach
     @endif
+
 
 </body>
 </html>
