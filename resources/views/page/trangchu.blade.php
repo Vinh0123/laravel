@@ -70,7 +70,11 @@
 						</div>
 					</div> <!-- .beta-products-list -->
 
-					<div class="space50">&nbsp;</div>
+					<div class="row">
+						<div class="col-sm-12 text-center">
+							{{ $newProducts->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}
+						</div>
+					</div>
 
 					<!-- Top Products -->
 					<div class="beta-products-list">
@@ -111,6 +115,11 @@
 								</div>
 							</div>
 							@endforeach
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-12 text-center">
+							{{ $topProducts->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}
 						</div>
 					</div> <!-- .beta-products-list -->
 				</div>

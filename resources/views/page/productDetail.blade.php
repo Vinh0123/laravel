@@ -1,26 +1,12 @@
 @extends('master')
 @section('content')
-<div class="inner-header">
-    <div class="container">
-        <div class="pull-left">
-            <h6 class="inner-title">Product</h6>
-        </div>
-        <div class="pull-right">
-            <div class="beta-breadcrumb font-large">
-                <a href="{{ route('trang-chu') }}">Home</a> / <span>Product</span>
-            </div>
-        </div>
-        <div class="clearfix"></div>
-    </div>
-</div>
-
 <div class="container">
     <div id="content">
         <div class="row">
             <div class="col-sm-9">
                 <div class="row">
                     <div class="col-sm-4">
-                        <img src="source/image/product/{{$sanpham->image}}" alt="">
+                        <img src="/source/image/product/{{$sanpham->image}}" alt="">
                     </div>
                     <div class="col-sm-8">
                         <div class="single-item-body">
@@ -66,20 +52,41 @@
                         </div>
                     </div>
                 </div>
-                <div class="space40">&nbsp;</div>
                 <div class="woocommerce-tabs">
                     <ul class="tabs">
-                        <li><a href="#tab-description">Description</a></li>
-                        <li><a href="#tab-reviews">Reviews (0)</a></li>
+                        <!-- <li><a href="#tab-description">Description</a></li> -->
+                        <li><a href="#tab-reviews">Reviews</a></li>
                     </ul>
-                    <div class="panel" id="tab-description">
-                        <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit...</p>
-                    </div>
-                    <div class="panel" id="tab-reviews">
-                        <p>No Reviews</p>
+                    <!-- <div class="panel" id="tab-description">
+                        <p class="single-item-description">{{ $sanpham->description }}</p>
+                    </div> -->
+                    <div class="panel" id="tab-comment">
+                        @if(isset($comments))
+                            @foreach($comments as $comment)
+                                <div class="comment-item border-bottom">
+                                    <!-- <b class="pull-left">{{$comment->username}}</b> -->
+                                    <p class="comment-text">{{$comment->comment}}</p>
+                                </div>
+                            @endforeach
+                            <div class="pagination-container row">
+                                {{$comments->links("pagination::bootstrap-4")}}
+                            </div>
+                        @else
+                            <p class="no-comments">Chưa có bình luận nào!</p>
+                        @endif
+
+                        <div class="card-body">
+                            <form method="post" action="/comment/{{$sanpham->id}}">
+                                @csrf
+                                <div class="form-group">
+                                    <textarea class="form-control" name="comment" required></textarea>
+                                </div>
+                                <button type="submit" class="beta-btn primary">Bình luận</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
-                <div class="space50">&nbsp;</div>
+                <!-- <div class="space50">&nbsp;</div> -->
                 <div class="beta-products-list">
                     <h4>Related Products</h4>
                     <div class="row">
@@ -88,13 +95,12 @@
                                 <div class="single-item">
                                     <div class="single-item-header">
                                         <a href="{{ route('chitietsanpham', ['id' => $product->id])}}">
-                                            <img src="source/image/product/{{ $product->image }}" alt="">
+                                            <img src="/source/image/product/{{ $product->image }}" alt="">
                                         </a>
                                     </div>
                                     <div class="single-item-body">
                                         <p class="single-item-title">{{ $product->name }}</p>
                                         <p class="single-item-price">
-                                            <span>${{ number_format($product->unit_price, 2) }}</span>
                                         </p>
                                     </div>
                                     <div class="single-item-caption">
@@ -112,14 +118,14 @@
                     </div>
                 </div>
 
-            <div class="col-sm-3 aside">
+            <!-- <div class="col-sm-3 aside">
                 <div class="widget">
                     <h3 class="widget-title">Best Sellers</h3>
                     <div class="widget-body">
                         @foreach (range(1, 4) as $i)
                             <div class="media beta-sales-item">
                                 <a class="pull-left" href="{{ route('chitietsanpham', ['id' => $sanpham->id])}}">
-                                    <img src="source/assets/dest/images/products/sales/{{ $i }}.png" alt="">
+                                    <img src="/source/image/product/{{ $product->image }}" alt="">
                                 </a>
                                 <div class="media-body">
                                     Sample Woman Top
@@ -128,8 +134,8 @@
                             </div>
                         @endforeach
                     </div>
-                </div>
-                <div class="widget">
+                </div> -->
+                <!-- <div class="widget">
                     <h3 class="widget-title">New Products</h3>
                     <div class="widget-body">
                         @foreach ($newProducts as $product)
@@ -144,7 +150,7 @@
                             </div>
                         @endforeach
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>

@@ -1,18 +1,7 @@
 @extends('master')
+
 @section('content')
-<div class="inner-header">
-    <div class="container">
-        <div class="pull-left">
-            <h6 class="inner-title">Sản phẩm</h6>
-        </div>
-        <div class="pull-right">
-            <div class="beta-breadcrumb font-large">
-                <a href="{{ route('trang-chu') }}">Home</a> / <span>Sản phẩm</span>
-            </div>
-        </div>
-        <div class="clearfix"></div>
-    </div>
-</div>
+
 <div class="container">
     <div id="content" class="space-top-none">
         <div class="main-content">
@@ -20,27 +9,26 @@
             <div class="row">
                 <div class="col-sm-3">
                     <ul class="aside-menu">
-                        <li class="is-active"><a href="#">Custom callout box</a></li>
-                        <li><a href="#">Page section</a></li>
-                        <li><a href="#">Mini callout box</a></li>
-                        <li><a href="#">Content box</a></li>
+                        @foreach($type_product as $type)
+                            <li><a href="{{ route('loaisanpham', ['id' => $type->id]) }}">{{ $type->name }}</a></li>
+                        @endforeach
                     </ul>
                 </div>
                 <div class="col-sm-9">
                     <div class="beta-products-list">
-                        <h4>New Products</h4>
+                        <h4>Sản phẩm</h4>
                         <div class="beta-products-details">
-                            <p class="pull-left">{{ count($newProducts) }} sản phẩm mới</p>
+                            <p class="pull-left">{{ count($product_type) }} sản phẩm thuộc loại này</p>
                             <div class="clearfix"></div>
                         </div>
 
                         <div class="row">
-                            @foreach ($newProducts as $product)
+                            @foreach ($product_type as $product)
                                 <div class="col-sm-4">
                                     <div class="single-item">
                                         <div class="single-item-header">
                                             <a href="{{ route('chitietsanpham', ['id' => $product->id]) }}">
-                                                <img src="source\image\product\{{$product->image}}" alt="{{ $product->name }}">
+                                                <img src="/source/image/product/{{$product->image}}" alt="{{ $product->name }}">
                                             </a>
                                         </div>
                                         <div class="single-item-body">
@@ -63,18 +51,18 @@
                     <div class="space50">&nbsp;</div>
 
                     <div class="beta-products-list">
-                        <h4>Top Products</h4>
+                        <h4>Sản phẩm khác</h4>
                         <div class="beta-products-details">
-                            <p class="pull-left">{{ count($topProducts) }} sản phẩm hàng đầu</p>
+                            <p class="pull-left">{{ $other_product->count() }} sản phẩm khác</p>
                             <div class="clearfix"></div>
                         </div>
                         <div class="row">
-                            @foreach ($topProducts as $product)
+                            @foreach ($other_product as $product)
                                 <div class="col-sm-4">
                                     <div class="single-item">
                                         <div class="single-item-header">
                                             <a href="{{ route('chitietsanpham', ['id' => $product->id]) }}">
-                                                <img src="source\image\product\{{$product->image}}" alt="{{ $product->name }}">
+                                                <img src="/source/image/product/{{$product->image}}" alt="{{ $product->name }}">
                                             </a>
                                         </div>
                                         <div class="single-item-body">
@@ -94,6 +82,12 @@
                         </div>
                         <div class="space40">&nbsp;</div>
                         
+                        <!-- Phân trang -->
+                        <div class="row">
+                            <div class="col-sm-12">
+                                {{ $other_product->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}
+                            </div>
+                        </div>
                     </div> <!-- .beta-products-list -->
                 </div>
             </div> <!-- end section with sidebar and main content -->
